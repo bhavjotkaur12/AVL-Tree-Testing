@@ -70,7 +70,7 @@ void testDeletion(AVLTree& avlTree) {
 }
 
 // Test for maximum size
-void testMaximumSize() {
+ void testMaximumSize() {
     std::cout << "Testing maximum size..." << std::endl;
     
     int maxAvlSize = 0;
@@ -87,7 +87,7 @@ void testMaximumSize() {
                     avlTree.insert(empl);
                 }
                 std::cout << "Successfully created AVL tree of size: " << maxAvlSize << std::endl;
-                maxAvlSize += 1000000; // Increase the size in steps
+                maxAvlSize += 10000; // Increase the size in steps
             }
         } catch (const std::bad_alloc&) {
             std::cout << "Memory allocation failed for AVL tree of size: " << maxAvlSize << std::endl;
@@ -102,7 +102,7 @@ void testMaximumSize() {
                     testMap[empl.sin] = empl;
                 }
                 std::cout << "Successfully created std::map of size: " << maxMapSize << std::endl;
-                maxMapSize += 1000000; // Increase the size in steps
+                maxMapSize += 10000; // Increase the size in steps
             }
         } catch (const std::bad_alloc&) {
             std::cout << "Memory allocation failed for std::map of size: " << maxMapSize << std::endl;
@@ -113,7 +113,7 @@ void testMaximumSize() {
     std::cout << "Maximum size for AVL tree before allocation failure: " << maxAvlSize - 1000 << std::endl;
     std::cout << "Maximum size for std::map before allocation failure: " << maxMapSize - 1000 << std::endl;
     pause("Press Enter to continue...");
-}
+} 
 
 // Test for load (repeated access)
 void testLoad(AVLTree& avlTree, std::map<int, EmployeeInfo>& stdMap) {
