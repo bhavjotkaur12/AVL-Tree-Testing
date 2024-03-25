@@ -46,7 +46,7 @@ void testInsertion(AVLTree& avlTree) {
     // Display the AVL tree
     avlTree.display();
 
-    // Compare with the expected tree structure (manually or using visualization software)
+    // Compare with the expected tree structure 
     std::cout << "Manually compare the displayed tree with the expected structure." << std::endl;
     pause("Press Enter to continue...");
 }
@@ -64,7 +64,7 @@ void testDeletion(AVLTree& avlTree) {
     // Display the AVL tree
     avlTree.display();
 
-    // Compare with the expected tree structure after deletion (manually or using visualization software)
+    // Compare with the expected tree structure after deletion 
     std::cout << "Manually compare the displayed tree with the expected structure after deletion." << std::endl;
     pause("Press Enter to continue...");
 }
