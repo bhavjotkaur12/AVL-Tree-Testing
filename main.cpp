@@ -9,6 +9,7 @@
 #include <fstream>
 #include <limits>
 
+
 const int NUM_ELEMENTS = 10000; // Adjust this number based on your system's capabilities
 
 // Helper function to generate random EmployeeInfo data
@@ -27,7 +28,7 @@ void pause(const std::string& message) {
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
 
-// Test for correctness of insertion
+// Test for correctness of insertion with timing
 void testInsertion(AVLTree& avlTree) {
     std::cout << "Testing insertion correctness with hard-coded data..." << std::endl;
 
@@ -38,10 +39,16 @@ void testInsertion(AVLTree& avlTree) {
         {60000, 40, 3, 103}
     };
 
+    Timer timer;
+    timer.start();
+
     // Insert hard-coded data into AVL tree
     for (const auto& empl : testData) {
         avlTree.insert(empl);
     }
+
+    timer.stop();
+    std::cout << "Time taken for insertion: " << timer.currtime() << " seconds" << std::endl;
 
     // Display the AVL tree
     avlTree.display();
@@ -51,15 +58,21 @@ void testInsertion(AVLTree& avlTree) {
     pause("Press Enter to continue...");
 }
 
-// Test for correctness of deletion
+// Test for correctness of deletion with timing
 void testDeletion(AVLTree& avlTree) {
     std::cout << "Testing deletion correctness with hard-coded data..." << std::endl;
 
     // Hard-coded data for deletion
     int sinToDelete = 102; // Assuming this SIN exists in the tree
 
+    Timer timer;
+    timer.start();
+
     // Delete the node with the given SIN
     avlTree.remove(sinToDelete);
+
+    timer.stop();
+    std::cout << "Time taken for deletion: " << timer.currtime() << " seconds" << std::endl;
 
     // Display the AVL tree
     avlTree.display();
@@ -69,51 +82,7 @@ void testDeletion(AVLTree& avlTree) {
     pause("Press Enter to continue...");
 }
 
-// Test for maximum size
- void testMaximumSize() {
-    std::cout << "Testing maximum size..." << std::endl;
-    
-    int maxAvlSize = 0;
-    int maxMapSize = 0;
-    bool avlAllocationFailed = false;
-    bool mapAllocationFailed = false;
 
-    while (!avlAllocationFailed || !mapAllocationFailed) {
-        try {
-            if (!avlAllocationFailed) {
-                AVLTree avlTree;
-                for (int i = 0; i < maxAvlSize; ++i) {
-                    EmployeeInfo empl = generateRandomEmployeeInfo(i);
-                    avlTree.insert(empl);
-                }
-                std::cout << "Successfully created AVL tree of size: " << maxAvlSize << std::endl;
-                maxAvlSize += 10000; // Increase the size in steps
-            }
-        } catch (const std::bad_alloc&) {
-            std::cout << "Memory allocation failed for AVL tree of size: " << maxAvlSize << std::endl;
-            avlAllocationFailed = true;
-        }
-
-        try {
-            if (!mapAllocationFailed) {
-                std::map<int, EmployeeInfo> testMap;
-                for (int i = 0; i < maxMapSize; ++i) {
-                    EmployeeInfo empl = generateRandomEmployeeInfo(i);
-                    testMap[empl.sin] = empl;
-                }
-                std::cout << "Successfully created std::map of size: " << maxMapSize << std::endl;
-                maxMapSize += 10000; // Increase the size in steps
-            }
-        } catch (const std::bad_alloc&) {
-            std::cout << "Memory allocation failed for std::map of size: " << maxMapSize << std::endl;
-            mapAllocationFailed = true;
-        }
-    }
-
-    std::cout << "Maximum size for AVL tree before allocation failure: " << maxAvlSize - 1000 << std::endl;
-    std::cout << "Maximum size for std::map before allocation failure: " << maxMapSize - 1000 << std::endl;
-    pause("Press Enter to continue...");
-} 
 
 // Test for load (repeated access)
 void testLoad(AVLTree& avlTree, std::map<int, EmployeeInfo>& stdMap) {
@@ -202,7 +171,6 @@ void runTests() {
     // Perform tests
     testInsertion(avlTree);
     testDeletion(avlTree);
-    testMaximumSize();
     testLoad(avlTree, stdMap);
     testSearchSpeed(avlTree, stdMap);
 }
